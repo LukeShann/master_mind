@@ -14,12 +14,17 @@ class Game
     welcome
     player_setup
     @code = @player_one.choose_code
-    until @game_won do
+    until @game_won || @history.length >= 12 do
       guess = @player_two.guess(history)
       score = evalute_guess(guess)
       @history.push({:guess => guess, :score => score})
       print_board(@history)
     end
+    if @game_won
+      print_message('Win!')
+      return
+    end
+    print_message('No more turns!')
   end
 
   def evalute_guess(guess)
@@ -43,13 +48,13 @@ class Game
     loop do
       choice = gets.chomp.to_i
       if choice == 1 then
-        @player_one = HumanPlayer.new('Player 1')
-        @player_two = ComputerPlayer.new('Player 2')
+        @player_one = HumanPlayer.new('You')
+        @player_two = ComputerPlayer.new('Computer')
         print_message("You will be choosing")
         break
       elsif choice == 2 then
-        @player_one = ComputerPlayer.new('Player 1')
-        @player_two = HumanPlayer.new('Player 2')
+        @player_one = ComputerPlayer.new('Computer')
+        @player_two = HumanPlayer.new('You')
         print_message("You will be guessing")
         break
       end
