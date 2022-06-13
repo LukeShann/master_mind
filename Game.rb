@@ -2,7 +2,7 @@ require_relative "screen"
 
 class Game
   include Screen
-  attr_accessor :player_1, :player_2, :code, :history, :game_won
+  attr_accessor :player_one, :player_two, :code, :history, :game_won
 
   def initialize
     @history = []
@@ -13,9 +13,9 @@ class Game
   def play_game
     welcome
     player_setup
-    @code = @player_1.make_code
+    @code = @player_one.make_code
     until @game_won do
-      guess = @player_2.guess
+      guess = @player_two.guess
       score = evalute_guess(guess)
       @history.push({:guess => guess, :score => score})
       print_board(@history)
@@ -24,9 +24,10 @@ class Game
   end
 
   def evalute_guess(guess)
-    [1, 1]
-    # declare game won if arrays match
+    @game_won = true if guess == @code
     # return array of two numbers to indicate black & white pegs to be interpreted by print_board
+    score = [0, 0]
+    
   end
 
   def player_setup
@@ -37,13 +38,13 @@ class Game
     loop do
       choice = gets.chomp.to_i
       if choice == 1 then
-        @player_1 = HumanPlayer.new('Player 1')
-        @player_2 = ComputerPlayer.new('Player 2')
+        @player_one = HumanPlayer.new('Player 1')
+        @player_two = ComputerPlayer.new('Player 2')
         print_message("You will be choosing")
         break
       elsif choice == 2 then
-        @player_1 = ComputerPlayer.new('Player 1')
-        @player_2 = HumanPlayer.new('Player 2')
+        @player_one = ComputerPlayer.new('Player 1')
+        @player_two = HumanPlayer.new('Player 2')
         print_message("You will be guessing")
         break
       end

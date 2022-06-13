@@ -12,19 +12,19 @@ class Player
   def guess
     [1, 2, 3, 4]
   end
+
+  def is_valid_code?(code)
+    return false if code.length != 4
+    return false if code.uniq.length != 4
+    code.all? { |digit| (1..6).include?(digit) }
+  end
 end
 
 class HumanPlayer < Player
   def make_code
-    def is_valid?(code)
-      return false if code.length != 4
-      return false if code.uniq.length != 4
-      code.all? { |digit| (1..6).include?(digit) }
-    end
-
     print_message("Enter 4 unique digits")
     code = []
-    until is_valid?(code) do
+    until is_valid_code?(code) do
       code = gets.chomp.split('')
       code.map!(&:to_i)
     end
