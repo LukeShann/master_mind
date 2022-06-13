@@ -1,3 +1,5 @@
+require_relative "screen"
+
 class Player
 end
 
