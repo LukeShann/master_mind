@@ -14,11 +14,12 @@ module Screen
   end
 
   def print_message_line(content)
-    margin = (SCREEN_WIDTH - content.length) / 2 - 1
-    margin.times { print '=' }
+    margin = (SCREEN_WIDTH - content.length) / 2 - 2
+    print "="
+    margin.times { print ' ' }
     print " #{content} "
-    (margin + content.length % 2).times { print '=' }
-    print "\n"
+    (margin + content.length % 2).times { print ' ' }
+    puts "="
   end
 
   def print_board(history)
