@@ -13,15 +13,12 @@ class Game
   def play_game
     welcome
     player_setup
-    @code = @player_one.make_code
+    @code = @player_one.choose_code
     until @game_won do
-      guess = @player_two.guess
+      guess = @player_two.guess(history)
       score = evalute_guess(guess)
       @history.push({:guess => guess, :score => score})
-      puts "history = #{@history}"
       print_board(@history)
-      # temp to stop loop executing
-      @game_won = true
     end
   end
 

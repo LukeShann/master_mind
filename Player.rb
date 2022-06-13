@@ -8,11 +8,6 @@ class Player
     @name = name
   end
 
-  # temporary fill in function
-  def guess
-    [1, 2, 3, 4]
-  end
-
   def is_valid_code?(code)
     return false if code.length != 4
     return false if code.uniq.length != 4
@@ -21,7 +16,15 @@ class Player
 end
 
 class HumanPlayer < Player
-  def make_code
+  def guess(_)
+    get_code
+  end
+
+  def choose_code
+    get_code
+  end
+
+  def get_code
     print_message("Enter 4 unique digits")
     code = []
     until is_valid_code?(code) do
@@ -34,6 +37,16 @@ class HumanPlayer < Player
 end
 
 class ComputerPlayer < Player
+  def guess(history)
+    # AI goes here
+    make_code
+  end
+
+  def choose_code
+    print_message("Computer has selected a code")
+    make_code
+  end
+
   def make_code
     code = []
     4.times do
@@ -46,6 +59,5 @@ class ComputerPlayer < Player
       end
     end
     code
-    print_message("Computer has selected a code")
   end
 end
