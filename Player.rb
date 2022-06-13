@@ -33,13 +33,42 @@ class HumanPlayer < Player
     end
     code
   end
-
 end
 
 class ComputerPlayer < Player
+  def initialize(name)
+    @name = name
+    @sets = populate_set
+  end
+
+  def populate_set
+    sets = []
+    combinations = (1..6).to_a.combination(4).to_a
+    combinations.each do |set|
+      combo = []
+      4.times do |first| # four times, indexes 0 - 3
+        combo[0] = set[first]
+        4.times do |second| # three times, each index that isn't first
+          next if second == first
+          combo[1] = set[second]
+          4.times do |third| # twice, each index that isn't first or second
+            next if third == first || third == second
+            combo[2] = set[third]
+            4.times do |fourth| # once, with the only index left
+              next if fourth == first || fourth == second || fourth == third
+              combo[3] = set[fourth]
+              sets.push(combo)
+            end
+          end
+        end
+      end
+    end
+    sets
+  end
+
   def guess(history)
-    # AI goes here
-    make_code
+    return @sets.sample if history.empty?
+    
   end
 
   def choose_code

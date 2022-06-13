@@ -21,7 +21,7 @@ class Game
       print_board(@history)
     end
     if @game_won
-      print_message('Win!')
+      print_message('Winner!')
       return
     end
     print_message('No more turns!')
