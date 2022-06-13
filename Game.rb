@@ -29,13 +29,17 @@ class Game
 
   def evalute_guess(guess)
     @game_won = true if guess == @code
+    score_guess(guess, @code)
+  end
+
+  def score_guess(guess, code)
     score = [0, 0]
     guess.each_with_index do |digit, i|
-      if digit == @code[i]
+      if digit == code[i]
         score[0] += 1
         next
       end
-      score[1] += 1 if @code.include?(digit)
+      score[1] += 1 if code.include?(digit)
     end
     score
   end
@@ -49,11 +53,11 @@ class Game
       choice = gets.chomp.to_i
       if choice == 1 then
         @player_one = HumanPlayer.new('You')
-        @player_two = ComputerPlayer.new('Computer')
+        @player_two = ComputerPlayer.new('Computer', self)
         print_message("You will be choosing")
         break
       elsif choice == 2 then
-        @player_one = ComputerPlayer.new('Computer')
+        @player_one = ComputerPlayer.new('Computer', self)
         @player_two = HumanPlayer.new('You')
         print_message("You will be guessing")
         break

@@ -36,14 +36,21 @@ class HumanPlayer < Player
 end
 
 class ComputerPlayer < Player
-  def initialize(name)
+  def initialize(name, game)
     @name = name
+    @game = game
     @sets = populate_set
   end
   
   def guess(history)
     return @sets.sample if history.empty?
-    
+    @sets = @sets.select { |set| 
+      # if the last guess scores the same as any sets, keep them in
+      this = @game.score_guess(history.last[:guess], set)
+      that = history.last[:score]
+      this == that
+    }
+    @sets.sample
   end
   
   def choose_code
@@ -56,15 +63,15 @@ class ComputerPlayer < Player
     combinations = (1..6).to_a.combination(4).to_a
     combinations.each do |set|
       combo = []
-      4.times do |first| # four times, indexes 0 - 3
+      4.times do |first|
         combo[0] = set[first]
-        4.times do |second| # three times, each index that isn't first
+        4.times do |second|
           next if second == first
           combo[1] = set[second]
-          4.times do |third| # twice, each index that isn't first or second
+          4.times do |third|
             next if third == first || third == second
             combo[2] = set[third]
-            4.times do |fourth| # once, with the only index left
+            4.times do |fourth|
               next if fourth == first || fourth == second || fourth == third
               combo[3] = set[fourth]
               sets.push(combo)
