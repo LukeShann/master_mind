@@ -28,9 +28,10 @@ module Screen
   end
 
   def translate_score(score)
-    str = ''
+    str = ' '
     score[0].times { str += '● ' }
     score[1].times { str += '○ ' }
-    str.strip
+    str += ' ' while str.length < 9
+    str
   end
 end

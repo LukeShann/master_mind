@@ -24,7 +24,7 @@ class Game
   end
 
   def evalute_guess(guess)
-    [1, 3]
+    [1, 1]
     # declare game won if arrays match
     # return array of two numbers to indicate black & white pegs to be interpreted by print_board
   end
