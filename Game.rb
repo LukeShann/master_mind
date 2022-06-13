@@ -6,11 +6,12 @@ end
 
 class Game
   include Screen
-  attr_accessor :player_1, :player_2
-  attr_reader :screen_width
+  attr_accessor :player_1, :player_2, :code, :guesses
+  SCREEN_WIDTH = 80
 
   def initialize
-    @screen_width = 80
+    @guesses = []
+    @code = []
   end
 
   def play_game
@@ -19,6 +20,17 @@ class Game
   end
 
   def player_setup
+    print_message(
+      "Would you like to guess the code or write the code?",
+      "Enter 1 to write the code or 2 to guess"
+    )
+    loop do
+      choice = gets.chomp
+      if choice == 1 then
+        player_1 = HumanPlayer.new
+        player_2 = ComputerPlayer.new
+      end
+    end
 
   end
 
@@ -32,15 +44,15 @@ class Game
   end
 
   def print_message(*args)
-    @screen_width.times { print '=' }
+    SCREEN_WIDTH.times { print '=' }
     puts ''
     args.each { |message| print_message_line(message) }
-    @screen_width.times { print '=' }
+    SCREEN_WIDTH.times { print '=' }
     puts "\n\n"
   end
 
   def print_message_line(content)
-    margin = (@screen_width - content.length) / 2 - 1
+    margin = (SCREEN_WIDTH - content.length) / 2 - 1
     margin.times { print '=' }
     print " #{content} "
     (margin + content.length % 2).times { print '=' }
