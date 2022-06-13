@@ -40,7 +40,17 @@ class ComputerPlayer < Player
     @name = name
     @sets = populate_set
   end
-
+  
+  def guess(history)
+    return @sets.sample if history.empty?
+    
+  end
+  
+  def choose_code
+    print_message("Computer has selected a code")
+    make_code
+  end
+  
   def populate_set
     sets = []
     combinations = (1..6).to_a.combination(4).to_a
@@ -64,16 +74,6 @@ class ComputerPlayer < Player
       end
     end
     sets
-  end
-
-  def guess(history)
-    return @sets.sample if history.empty?
-    
-  end
-
-  def choose_code
-    print_message("Computer has selected a code")
-    make_code
   end
 
   def make_code
