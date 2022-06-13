@@ -18,16 +18,24 @@ class Game
       guess = @player_two.guess
       score = evalute_guess(guess)
       @history.push({:guess => guess, :score => score})
+      puts "history = #{@history}"
       print_board(@history)
+      # temp to stop loop executing
       @game_won = true
     end
   end
 
   def evalute_guess(guess)
     @game_won = true if guess == @code
-    # return array of two numbers to indicate black & white pegs to be interpreted by print_board
     score = [0, 0]
-    
+    guess.each_with_index do |digit, i|
+      if digit == @code[i]
+        score[0] += 1
+        next
+      end
+      score[1] += 1 if @code.include?(digit)
+    end
+    score
   end
 
   def player_setup
