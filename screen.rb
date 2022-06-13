@@ -22,6 +22,7 @@ module Screen
   end
 
   def print_board(history)
+    Screen.clear
     board = []
     history.each { |set| board.push("#{set[:guess].join(' ')} -> #{translate_score(set[:score])}") }
     print_message(board)
