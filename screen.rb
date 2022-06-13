@@ -8,7 +8,7 @@ module Screen
   def print_message(*args)
     SCREEN_WIDTH.times { print '=' }
     puts ''
-    args.each { |message| print_message_line(message) }
+    args.flatten.each { |message| print_message_line(message) }
     SCREEN_WIDTH.times { print '=' }
     puts "\n\n"
   end
@@ -22,9 +22,9 @@ module Screen
   end
 
   def print_board(history)
-    history.each do |set|
-      print_message_line("#{set[:guess].join(' ')} -> #{translate_score(set[:score])}")
-    end
+    board = []
+    history.each { |set| board.push("#{set[:guess].join(' ')} -> #{translate_score(set[:score])}") }
+    print_message(board)
   end
 
   def translate_score(score)
