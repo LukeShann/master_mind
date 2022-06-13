@@ -2,10 +2,10 @@ require_relative "screen"
 
 class Game
   include Screen
-  attr_accessor :player_1, :player_2, :code, :guesses, :game_won
+  attr_accessor :player_1, :player_2, :code, :history, :game_won
 
   def initialize
-    @guesses = []
+    @history = []
     @code = []
     @game_won = false
   end
@@ -17,14 +17,14 @@ class Game
     until @game_won do
       guess = @player_2.guess
       score = evalute_guess(guess)
-      @guesses.push({:guess => guess, :score => score})
-      print_board(@guesses)
+      @history.push({:guess => guess, :score => score})
+      print_board(@history)
       @game_won = true
     end
   end
 
   def evalute_guess(guess)
-    ['○', '○', '○', '●']
+    [1, 3]
     # declare game won if arrays match
     # return array of two numbers to indicate black & white pegs to be interpreted by print_board
   end

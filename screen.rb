@@ -1,8 +1,8 @@
 module Screen
   SCREEN_WIDTH = 80
-  
+
   def self.clear
-      print "\e[2J\e[f"
+    print "\e[2J\e[f"
   end
 
   def print_message(*args)
@@ -21,7 +21,16 @@ module Screen
     print "\n"
   end
 
-  def print_board(guesses)
-    p guesses
+  def print_board(history)
+    history.each do |set|
+      print_message_line("#{set[:guess].join(' ')} -> #{translate_score(set[:score])}")
+    end
+  end
+
+  def translate_score(score)
+    str = ''
+    score[0].times { str += '● ' }
+    score[1].times { str += '○ ' }
+    str.strip
   end
 end
