@@ -2,6 +2,16 @@ require_relative "screen"
 
 class Player
   include Screen
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  # temporary fill in function
+  def guess
+    [1, 2, 3, 4]
+  end
 end
 
 class HumanPlayer < Player
@@ -12,7 +22,7 @@ class HumanPlayer < Player
       code.all? { |digit| (1..6).include?(digit) }
     end
 
-    print_message("Enter a 4 digit code")
+    print_message("Enter 4 unique digits")
     code = []
     until is_valid?(code) do
       code = gets.chomp.split('')

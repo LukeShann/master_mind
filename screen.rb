@@ -20,4 +20,8 @@ module Screen
     (margin + content.length % 2).times { print '=' }
     print "\n"
   end
+
+  def print_board(guesses)
+    p guesses
+  end
 end
