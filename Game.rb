@@ -21,10 +21,12 @@ class Game
       print_board(@history)
     end
     if @game_won
-      print_message('Winner!')
+      print_message("#{@player_two.name} Wins!")
       return
     end
-    print_message('No more turns!')
+    print_message(
+      "No more turns!",
+      "#{@player_one.name} Wins!")
   end
 
   def evalute_guess(guess)

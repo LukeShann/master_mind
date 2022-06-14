@@ -78,7 +78,7 @@ class ComputerPlayer < Player
   end
 
   def get_code
-    sleep(2)
+    sleep(1.5)
     code = []
     4.times do
       loop do
