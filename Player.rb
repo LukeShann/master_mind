@@ -46,10 +46,9 @@ class ComputerPlayer < Player
     return @sets.sample if history.empty?
     @sets = @sets.select { |set| 
       # if the last guess scores the same as any sets, keep them in
-      this = @game.score_guess(history.last[:guess], set)
-      that = history.last[:score]
-      this == that
+      @game.score_guess(history.last[:guess], set) == history.last[:score]
     }
+    puts @sets
     @sets.sample
   end
   
@@ -61,21 +60,17 @@ class ComputerPlayer < Player
   def populate_set
     sets = []
     combinations = (1..6).to_a.combination(4).to_a
-    combinations.each do |set|
-      combo = []
+    combinations.each do |arr|
       4.times do |first|
-        combo[0] = set[first]
-        4.times do |second|
-          next if second == first
-          combo[1] = set[second]
-          4.times do |third|
-            next if third == first || third == second
-            combo[2] = set[third]
-            4.times do |fourth|
-              next if fourth == first || fourth == second || fourth == third
-              combo[3] = set[fourth]
-              sets.push(combo)
-            end
+        3.times do |second|
+          2.times do |third|
+            combo = []
+            set = arr.dup
+            combo[0] = set.delete_at(first)
+            combo[1] = set.delete_at(second)
+            combo[2] = set.delete_at(third)
+            combo[3] = set.delete_at(0)
+            sets.push(combo) unless sets.include?(combo)
           end
         end
       end
