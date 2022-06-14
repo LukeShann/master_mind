@@ -57,24 +57,20 @@ class Game
         "Would you like to guess the code or write the code?",
         "Enter 1 to write the code or 2 to guess"
       )
-      loop do
-        choice = gets.chomp.to_i
-        if choice == 1 then
-          @player_one = HumanPlayer.new('Player One')
-          @player_two = ComputerPlayer.new('Computer', self)
-          print_message("You will be choosing")
-          break
-        elsif choice == 2 then
-          @player_one = ComputerPlayer.new('Computer', self)
-          @player_two = HumanPlayer.new('Player One')
-          print_message("You will be guessing")
-        end
+      choice = 0
+      choice = gets.chomp.to_i until choice == 1 || choice == 2
+      if choice == 1
+        @player_one = HumanPlayer.new('Player One', 'Choose')
+        @player_two = ComputerPlayer.new('Computer', self)
+      end
+      if choice == 2 then
+        @player_one = ComputerPlayer.new('Computer', self)
+        @player_two = HumanPlayer.new('Player One', 'Guess')
       end
     end
     if choice == 2 then
-      @player_one = HumanPlayer.new('Player One')
-      @player_two = HumanPlayer.new('Player Two')
-      print_message("Player 1 chooses the code")
+      @player_one = HumanPlayer.new('Player One', 'Choose')
+      @player_two = HumanPlayer.new('Player Two', 'Guess')
     end
   end
 
