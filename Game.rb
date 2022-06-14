@@ -46,25 +46,38 @@ class Game
 
   def player_setup
     print_message(
-      "Would you like to guess the code or write the code?",
-      "Enter 1 to write the code or 2 to guess"
+      "Play against computer or another player?",
+      "Enter 1 for computer or 2 for another player"
     )
-    loop do
-      choice = gets.chomp.to_i
-      if choice == 1 then
-        @player_one = HumanPlayer.new('You')
-        @player_two = ComputerPlayer.new('Computer', self)
-        print_message("You will be choosing")
-        break
-      elsif choice == 2 then
-        @player_one = ComputerPlayer.new('Computer', self)
-        @player_two = HumanPlayer.new('You')
-        print_message("You will be guessing")
-        break
+    choice = 0
+    choice = gets.chomp.to_i until choice == 1 || choice == 2
+    Screen.clear
+    if choice == 1 then
+      print_message(
+        "Would you like to guess the code or write the code?",
+        "Enter 1 to write the code or 2 to guess"
+      )
+      loop do
+        choice = gets.chomp.to_i
+        if choice == 1 then
+          @player_one = HumanPlayer.new('Player One')
+          @player_two = ComputerPlayer.new('Computer', self)
+          print_message("You will be choosing")
+          break
+        elsif choice == 2 then
+          @player_one = ComputerPlayer.new('Computer', self)
+          @player_two = HumanPlayer.new('Player One')
+          print_message("You will be guessing")
+        end
       end
     end
+    if choice == 2 then
+      @player_one = HumanPlayer.new('Player One')
+      @player_two = HumanPlayer.new('Player Two')
+      print_message("Player 1 chooses the code")
+    end
   end
-  
+
   def welcome
     Screen.clear
     print_message(
