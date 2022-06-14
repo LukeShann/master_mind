@@ -43,12 +43,12 @@ class ComputerPlayer < Player
   end
   
   def guess(history)
+    sleep(0.5)
     return @sets.sample if history.empty?
+    return @sets.sample if rand(10) < 6
     @sets = @sets.select { |set| 
-      # if the last guess scores the same as any sets, keep them in
       @game.score_guess(history.last[:guess], set) == history.last[:score]
     }
-    puts @sets
     @sets.sample
   end
   
