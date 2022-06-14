@@ -2,7 +2,7 @@ require_relative "screen"
 
 class Game
   include Screen
-  attr_accessor :player_one, :player_two, :code, :history, :game_won
+  attr_reader :history
 
   def initialize
     @history = []
@@ -59,16 +59,16 @@ class Game
       )
       choice = 0
       choice = gets.chomp.to_i until choice == 1 || choice == 2
+      Screen.clear
       if choice == 1
         @player_one = HumanPlayer.new('Player One', 'Choose')
-        @player_two = ComputerPlayer.new('Computer', self)
+        @player_two = ComputerPlayer.new('Computer', 'Guess', self)
       end
       if choice == 2 then
-        @player_one = ComputerPlayer.new('Computer', self)
+        @player_one = ComputerPlayer.new('Computer', 'Choose', self)
         @player_two = HumanPlayer.new('Player One', 'Guess')
       end
-    end
-    if choice == 2 then
+    else
       @player_one = HumanPlayer.new('Player One', 'Choose')
       @player_two = HumanPlayer.new('Player Two', 'Guess')
     end

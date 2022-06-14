@@ -39,9 +39,10 @@ class HumanPlayer < Player
 end
 
 class ComputerPlayer < Player
-  def initialize(name, game)
+  def initialize(name, role, game)
     @name = name
     @game = game
+    @role = role
     @sets = populate_set
   end
   
