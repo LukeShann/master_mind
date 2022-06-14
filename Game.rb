@@ -79,7 +79,11 @@ class Game
     print_message(
       "Welcome to MasterMind!",
       "Guess the opponent's 4 digit code within 12 guesses to win",
-      "Each digit will be a number between 1 and 6"
+      "Each digit will be a number between 1 and 6")
+    print_message(
+      "Scoring",
+      "One ● for each correct digit in the correct place",
+      "One ○ for each correct digit in the wrong place",
     )
-  end
+    end
 end
