@@ -29,11 +29,6 @@ class Game
       "#{@player_one.name} Wins!")
   end
 
-  def evalute_guess(guess)
-    @game_won = true if guess == @code
-    score_guess(guess, @code)
-  end
-
   def score_guess(guess, code)
     score = [0, 0]
     guess.each_with_index do |digit, i|
@@ -44,6 +39,26 @@ class Game
       score[1] += 1 if code.include?(digit)
     end
     score
+  end
+
+  private
+
+  def evalute_guess(guess)
+    @game_won = true if guess == @code
+    score_guess(guess, @code)
+  end
+
+  def welcome
+    Screen.clear
+    print_message(
+      "Welcome to MasterMind!",
+      "Guess the opponent's 4 digit code within 12 guesses to win",
+      "Each digit will be a number between 1 and 6")
+    print_message(
+      "Scoring",
+      "One ● for each correct digit in the correct place",
+      "One ○ for each correct digit in the wrong place",
+    )
   end
 
   def player_setup
@@ -75,17 +90,4 @@ class Game
       @player_two = HumanPlayer.new('Player Two', 'Guess')
     end
   end
-
-  def welcome
-    Screen.clear
-    print_message(
-      "Welcome to MasterMind!",
-      "Guess the opponent's 4 digit code within 12 guesses to win",
-      "Each digit will be a number between 1 and 6")
-    print_message(
-      "Scoring",
-      "One ● for each correct digit in the correct place",
-      "One ○ for each correct digit in the wrong place",
-    )
-    end
 end

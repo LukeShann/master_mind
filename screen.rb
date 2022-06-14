@@ -13,6 +13,15 @@ module Screen
     puts "\n\n"
   end
 
+  def print_board(history)
+    Screen.clear
+    board = []
+    history.each { |set| board.push("#{set[:guess].join(' ')} -> #{translate_score(set[:score])}") }
+    print_message(board)
+  end
+
+  private
+
   def print_message_line(content)
     margin = (SCREEN_WIDTH - content.length) / 2 - 2
     print "="
@@ -20,13 +29,6 @@ module Screen
     print " #{content} "
     (margin + content.length % 2).times { print ' ' }
     puts "="
-  end
-
-  def print_board(history)
-    Screen.clear
-    board = []
-    history.each { |set| board.push("#{set[:guess].join(' ')} -> #{translate_score(set[:score])}") }
-    print_message(board)
   end
 
   def translate_score(score)

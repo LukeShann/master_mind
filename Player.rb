@@ -14,6 +14,8 @@ class Player
     get_code
   end
 
+  private
+
   def is_valid_code?(code)
     return false if code.length != 4
     return false if code.uniq.length != 4
@@ -25,6 +27,8 @@ class HumanPlayer < Player
   def guess(_)
     choose_code
   end
+
+  private
 
   def get_code
     print_message("Enter 4 unique digits from 1 - 6")
@@ -55,6 +59,8 @@ class ComputerPlayer < Player
     }
     @sets.sample
   end
+
+  private
   
   def populate_set
     sets = []
